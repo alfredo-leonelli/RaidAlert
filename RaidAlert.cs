@@ -163,8 +163,10 @@ namespace Oxide.Plugins
 
         private string GetGridPosition(Vector3 position)
         {
-            int adjustedX = Mathf.FloorToInt((position.x + worldSize / 2) / gridSize);
-            int adjustedZ = Mathf.FloorToInt((worldSize / gridSize) - Mathf.FloorToInt((position.z + worldSize / 2) / gridSize) - 1);
+            float halfWorld = worldSize / 2f;
+
+            int adjustedX = Mathf.FloorToInt((position.x + halfWorld) / gridSize);
+            int adjustedZ = Mathf.FloorToInt((worldSize / gridSize) - ((position.z + halfWorld) / gridSize));
 
             char column = (char)('A' + adjustedX);
             return $"{column}{adjustedZ}";
