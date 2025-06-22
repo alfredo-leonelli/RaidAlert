@@ -41,19 +41,19 @@ Upon first launch, the plugin will generate the following config file:
 
 ### Config Parameters
 
-| Key             | Type  | Description                                                             |
-| --------------- | ----- | ----------------------------------------------------------------------- |
-| `AlertCooldown` | float | Cooldown in **seconds** before a player can receive another raid alert. |
-| `WorldSize`     | float | The size of your Rust map. Used to calculate grid positions.            |
-| `TCRange`       | float | Detection range (in meters) to find the nearest TC.                     |
-| `DebugMode`     | bool  | If set to `true`, alerts are always sent regardless of attacker status. |
-| `RaidWeapons`   | array | List of weapon prefab names that trigger the raid alert.                |
+| Key             | Type  | Description                                                         |
+| --------------- | ----- | ------------------------------------------------------------------- |
+| `AlertCooldown` | float | Cooldown in seconds before a player can receive another raid alert. |
+| `WorldSize`     | float | The size of your Rust map. Used to calculate grid positions.        |
+| `TCRange`       | float | Detection range (in meters) to find the nearest TC.                 |
+| `DebugMode`     | bool  | If true, always triggers alerts regardless of attacker status.      |
+| `RaidWeapons`   | array | List of weapon prefab names that trigger the raid alert.            |
 
 ---
 
-## How it works
+## Usage
 
-1. When an entity (e.g., wall, door) is destroyed by a configured raid weapon, the plugin searches for a nearby Tool Cupboard.
+1. When a structure is destroyed by a configured raid weapon, the plugin searches for a nearby Tool Cupboard.
 2. If the attacker is **not authorized** and **not in the same clan** as someone who is authorized in that TC, an alert is sent.
    - If `DebugMode` is enabled, this check is skipped and alerts are always sent.
 3. Alerts include the **grid location** of the raid and are sent only once per cooldown period to prevent spam.
@@ -62,12 +62,11 @@ Upon first launch, the plugin will generate the following config file:
 
 ## Dependencies
 
-- Requires the **Clans** plugin (for clan-based authorization).
-  - If the Clans plugin is not installed, the plugin will only use Tool Cupboard authorization.
+- Requires the [Clans](https://umod.org/plugins/clans) plugin.
 
 ---
 
 ## Notes
 
 - Be sure to set the correct `WorldSize` that matches your server map (e.g., 3000, 3500, 4500).
-- Debug Mode is helpful for testing and should be disabled in production environments.
+- Debug Mode is for testing and should be disabled in production environments.
