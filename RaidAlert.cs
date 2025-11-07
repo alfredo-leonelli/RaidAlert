@@ -6,7 +6,7 @@ using Oxide.Core.Plugins;
 
 namespace Oxide.Plugins
 {
-    [Info("Raid Alert", "AnotherPanda", "1.1.0")]
+    [Info("Raid Alert", "AnotherPanda", "1.1.1")]
     [Description("Alerts authorized players when their base is being raided")]
 
     class RaidAlert : CovalencePlugin
@@ -127,7 +127,7 @@ namespace Oxide.Plugins
         {
             foreach (var auth in tc.authorizedPlayers)
             {
-                if (auth.userid == attacker.userID)
+                if (auth == attacker.userID)
                     return true;
             }
 
@@ -138,7 +138,7 @@ namespace Oxide.Plugins
                 {
                     foreach (var auth in tc.authorizedPlayers)
                     {
-                        string authorizedClan = Clans?.Call<string>("GetClanOf", auth.userid.ToString());
+                        string authorizedClan = Clans?.Call<string>("GetClanOf", auth.ToString());
                         if (authorizedClan == attackerClan)
                             return true;
                     }
@@ -152,7 +152,7 @@ namespace Oxide.Plugins
         {
             foreach (var auth in tc.authorizedPlayers)
             {
-                BasePlayer basePlayer = BasePlayer.FindByID(auth.userid);
+                BasePlayer basePlayer = BasePlayer.FindByID(auth);
                 if (basePlayer != null && basePlayer.IsConnected && !HasRecentAlert(basePlayer.userID))
                 {
                     SendMessage(basePlayer, $"Your base at grid {gridPosition} is being raided!");
